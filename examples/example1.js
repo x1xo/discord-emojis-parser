@@ -1,4 +1,4 @@
-const unicodeEmojis=require("./UnicodeEmojis.json")
+const unicodeEmojis=require("../UnicodeEmojis.json")
 function validateEmoji(emoji){
   if(emoji.startsWith(':') && emoji.endsWith(':')) emoji=emoji.slice(1,-1) // just in case it's in form of :smile:
   return emoji in unicodeEmojis

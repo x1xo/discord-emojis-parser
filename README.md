@@ -31,8 +31,8 @@ console.log(EmojiParser.parse(text))
 ```js
 const EmojiParser=require('discord-emojis-parser');
 
-let text=`Hello world 🌍!
-I'm alone here? 😭`
+let text=`Hello world :earth_africa:!
+I'm alone here? :sob:`
 
 console.log(EmojiParser.parse(text))
 // Output

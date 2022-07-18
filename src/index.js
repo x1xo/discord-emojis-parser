@@ -94,4 +94,4 @@ class EmojiParser {
     }
 
 }
-exports=new EmojiParser();
+module.exports=new EmojiParser();

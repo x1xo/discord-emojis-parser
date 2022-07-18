@@ -4,12 +4,12 @@ This package is used to parse discord unicode emojis from a text, with `name`, `
 
 ## Example: Using Unicodes
 ```js
-const parser=require('discord-emojis-parser');
+const EmojiParser=require('discord-emojis-parser');
 
 let text=`Hello world 🌍!
 I'm alone here? 😭`
 
-parser.parse(text)
+console.log(EmojiParser.parse(text))
 // Output
 // [
 //   {
@@ -29,12 +29,12 @@ parser.parse(text)
 
 ## Example: Using Represenatives
 ```js
-const parser=require('discord-emojis-parser');
+const EmojiParser=require('discord-emojis-parser');
 
-let text=`Hello world :earth_africa:!
-I'm alone here? :sob:`
+let text=`Hello world 🌍!
+I'm alone here? 😭`
 
-parser.parse(text)
+console.log(EmojiParser.parse(text))
 // Output
 // [
 //   {

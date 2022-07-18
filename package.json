@@ -1,6 +1,6 @@
 {
   "name": "discord-emojis-parser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Accurately parse any unicode emojis that are supported by discord",
   "main": "./src/index.js",
   "directories": {

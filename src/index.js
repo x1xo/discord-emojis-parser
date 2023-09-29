@@ -10,7 +10,7 @@ class EmojiParser {
         unicodes=unicodes.concat(this.parseTextRep(content));
         unicodes.sort((a,b)=>a.position-b.position)
 
-        return unicodes.map(v=>v.emoji)
+        return unicodes.map(v=>({...v.emoji,position:v.position}))
     }
     parseTextRep(content){
         let regexp=/:([\w_]+):/g;
@@ -21,7 +21,10 @@ class EmojiParser {
             let index=match.index;
             if(!this.isEmojiRep(name))  continue;
             reps.push({
-                position:index,
+                position:{
+                    from:index,
+                    to:match[0].length+index,
+                },
                 emoji:this.getEmojiFromTextRep(name)
             });
         }
@@ -68,8 +71,11 @@ class EmojiParser {
         return matchList.map(match=>{
             return ({
                 emoji:this.getEmojiFromUnicode(match[0]),
-                position:match.index,
-            })
+                position:{
+                    from:match.index,
+                    to:match.index+match[0].length,
+                }
+                })
         })
     }
 }

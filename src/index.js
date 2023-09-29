@@ -1,5 +1,7 @@
-const emojis=require('./files/UnicodeEmojis.json');
-const svgs=require('./files/UnicodeEmojisSVG.json');
+const emojis=require('../assets/UnicodeEmojis.json');
+const svgs=require('../assets/UnicodeEmojisSVG.json');
+const emojiReg = require('../assets/UnicodeEmojiRegex.js');
+
 class EmojiParser {
     constructor(){
     }
@@ -22,12 +24,31 @@ class EmojiParser {
                 position:index,
                 emoji:this.getEmojiFromTextRep(name)
             });
-            // reps=reps.map(rep=>rep.slice(1,-1)).filter(rep=>this.isEmojiRep(rep)).map(rep=>this.getEmojiFromTextRep(rep));
         }
         return reps;
     }
     charToHex(c){
         return c.codePointAt()?.toString(16)//.padStart(4,"0").toUpperCase();
+    }
+    toCodePoint(unicodeSurrogates, sep) {
+        unicodeSurrogates=unicodeSurrogates.indexOf(String.fromCharCode(0x200d)) < 0 ? unicodeSurrogates.replace(/\uFE0F/g, '') : unicodeSurrogates;
+        var
+          r = [],
+          c = 0,
+          p = 0,
+          i = 0;
+        while (i < unicodeSurrogates.length) {
+          c = unicodeSurrogates.charCodeAt(i++);
+          if (p) {
+            r.push((0x10000 + ((p - 0xD800) << 10) + (c - 0xDC00)).toString(16));
+            p = 0;
+          } else if (0xD800 <= c && c <= 0xDBFF) {
+            p = c;
+          } else {
+            r.push(c.toString(16));
+          }
+        }
+        return r.join(sep || '-');
     }
     isEmojiRep(name){
         return name in emojis
@@ -38,60 +59,18 @@ class EmojiParser {
     getEmojiFromUnicode(emoji){
         return {
             name:emojis[emoji],
-            svg:"https://discord.com/assets/"+svgs[[...emoji].map(this.charToHex).join('-')],
+            svg:"https://discord.com/assets/"+svgs[this.toCodePoint(emoji,'-')],
             unicode:emoji,
         }
     }
     parseUnicode(content){
-        let tree=this.getTree();
-        content=[...content];
-        let parsedEmojis=[];
-        let current=tree;
-        let emojiUnicodes=[]
-        for(let i=0;i<content.length;i++){
-            let code=this.charToHex(content[i]);
-            if(!(code in current)){
-                current=tree
-                continue;
-            }
-            current=current[code];
-            emojiUnicodes.push(code);
-            if(this.charToHex(content[i+1]??"") in current) continue;
-            if(("default" in current))parsedEmojis.push({
-                position:i-emojiUnicodes.length+1,
-                emoji:this.getEmojiFromUnicode(content.slice(i-emojiUnicodes.length+1,i+1).join('')),
-            });
-            current=tree;
-            emojiUnicodes=[]
-            
-        }
-        return parsedEmojis;
+        let matchList=[...content.matchAll(emojiReg)];
+        return matchList.map(match=>{
+            return ({
+                emoji:this.getEmojiFromUnicode(match[0]),
+                position:match.index,
+            })
+        })
     }
-    getTree(){
-        this._tree??=this.buildTree();
-        return this._tree;
-    }
-    buildTree(){
-        let tree={}
-        let emojiList=Object.keys(require('./files/UnicodeEmojisSVG'));
-        for(let i=0;i<emojiList.length;i++){
-            let line=emojiList[i].split("-");
-            // let unicode=line.pop();
-            let current=tree;
-            // console.log({line,current,unicode})
-            while(line.length!=1)
-            {
-                let code=line.shift()
-                current[code]??={}
-                current=current[code];
-            }
-            let last=line.shift();
-            current[last]??={};
-            current[last]['default']=true;
-        }
-        this._tree=tree;
-        return tree;
-    }
-
 }
 module.exports=new EmojiParser();

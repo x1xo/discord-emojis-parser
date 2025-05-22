@@ -1,7 +1,7 @@
 {
   "name": "discord-emojis-parser",
-  "version": "1.0.5",
-  "description": "Accurately parse any unicode emojis that are supported by discord",
+  "version": "1.0.0",
+  "description": "A lightweight utility to parse all types of Discord emojis from a message string",
   "main": "./src/index.js",
   "directories": {
     "lib": "src"
@@ -11,19 +11,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NervN/discord-emojis.git"
+    "url": "git+https://github.com/x1xo/discord-emojis-parser.git"
   },
   "keywords": [
     "emoji",
     "unicode",
     "discord",
     "reactions",
-    "parse"
+    "parse",
+    "custom",
+    "parser"
   ],
-  "author": "NervN",
-  "license": "ISC",
+  "author": "x1xo",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NervN/discord-emojis/issues"
+    "url": "https://github.com/x1xo/discord-emojis-parser/issues"
   },
-  "homepage": "https://github.com/NervN/discord-emojis#readme"
+  "homepage": "https://github.com/x1xo/discord-emojis-parser#readme"
 }

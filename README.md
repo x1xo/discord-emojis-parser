@@ -19,13 +19,13 @@ Returns full metadata about each emoji including:
 ## 🔧 Installation
 
 ```bash
-npm install your-emoji-parser
+npm install @piton/discord-emojis-parser
 ````
 
 Or clone this repo directly if using as a module:
 
 ```bash
-git clone https://github.com/yourusername/emoji-parser
+git clone https://github.com/x1xo/discord-emojis-parser
 ```
 
 ---

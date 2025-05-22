@@ -19,7 +19,7 @@ Returns full metadata about each emoji including:
 ## 🔧 Installation
 
 ```bash
-npm install @piton/discord-emojis-parser
+npm install discord-emoji-parser
 ````
 
 Or clone this repo directly if using as a module:
@@ -33,7 +33,7 @@ git clone https://github.com/x1xo/discord-emojis-parser
 ## 📦 Usage
 
 ```js
-const emojiParser = require('./EmojiParser');
+const emojiParser = require('discord-emoji-parser');
 
 const input = 'Hello <:wave:123456789012345678> :smile: 😂 <a:party:987654321098765432>';
 const parsed = emojiParser.parse(input);

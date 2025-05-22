@@ -1,5 +1,5 @@
 {
-  "name": "discord-emojis-parser",
+  "name": "@piton/discord-emojis-parser",
   "version": "1.0.0",
   "description": "A lightweight utility to parse all types of Discord emojis from a message string",
   "main": "./src/index.js",

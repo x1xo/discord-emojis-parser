@@ -1,6 +1,6 @@
 {
   "name": "discord-emoji-parser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight utility to parse all types of Discord emojis from a message string",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

@@ -4,15 +4,42 @@ declare module "discord-emoji-parser" {
     to: number;
   }
 
-  interface Emoji {
-    id: string | null;
+  interface BaseEmoji {
     name: string;
-    type: "unicode" | "custom" | "text";
     unicode: string;
     position: EmojiPosition;
     link: string | null;
     animated: boolean;
   }
+
+  /**
+   * Represents a unicode emoji.
+   */
+  interface UnicodeEmoji extends BaseEmoji {
+    type: "unicode";
+    id: null;
+  }
+
+  /**
+   * Represents a text-based emoji like `:emoji_name:`.
+   */
+  interface TextEmoji extends BaseEmoji {
+    type: "text";
+    id: null;
+  }
+
+  /**
+   * Represents a Discord custom emoji like `<:name:id>` or `<a:name:id>`.
+   */
+  interface CustomEmoji extends BaseEmoji {
+    type: "custom";
+    id: string; // Required when type is "custom"
+  }
+
+  /**
+   * Represents a parsed emoji from message content.
+   */
+  type Emoji = UnicodeEmoji | TextEmoji | CustomEmoji;
 
   class EmojiParser {
     /**
